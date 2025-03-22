@@ -15,6 +15,7 @@ public class ChatService {
     public void save(MessageDTO messageDTO) {
         Message message = new Message();
         message.setSender(messageDTO.sender());
+        message.setReceiver(messageDTO.receiver());
         message.setContent(messageDTO.content());
         message.setTimestamp(messageDTO.timestamp());
         messageRepository.save(message);
