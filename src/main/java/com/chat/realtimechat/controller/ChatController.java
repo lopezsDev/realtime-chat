@@ -18,19 +18,11 @@ public class ChatController {
     private ChatService chatService;
 
     @MessageMapping("/chat1")
-    //@SendTo("/topic/canal1")
-    public void sendMessage(MessageDTO messageDTO) {
-        System.out.println("El mensaje recibido es: " + messageDTO);
+    @SendTo("/topic/messages")
+    public MessageDTO sendMessage(MessageDTO messageDTO) {
+        System.out.println("Mensaje recibido: " + messageDTO);
+
         chatService.save(messageDTO);
-
-        messagingTemplate.convertAndSendToUser(messageDTO.receiver(),
-                "/queue/messages", messageDTO);
-
-        if(!messageDTO.sender().equals(messageDTO.receiver())){
-            messagingTemplate.convertAndSendToUser(
-                    messageDTO.sender(),
-                    "/queue/messages", messageDTO
-            );
-        }
+        return messageDTO;
     }
 }
