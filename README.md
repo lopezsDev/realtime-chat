@@ -15,8 +15,8 @@ La aplicación permite:
 ## 🔧 Tecnologías Utilizadas
 
 ### Backend
-- **Java 11+**
-- **Spring Boot 2.7.x**
+- **Java 17+**
+- **Spring Boot 3.4.3**
 - **Spring WebSocket**
 - **STOMP (Simple Text Oriented Messaging Protocol)**
 - **SockJS**
@@ -31,7 +31,7 @@ La aplicación permite:
 
 ## 🏗 Arquitectura
 
-La aplicación sigue una arquitectura de microservicios con las siguientes capas:
+La aplicación sigue una arquitectura monolítica tradicional de Spring Boot con las siguientes capas:
 
 ```
 ┌─────────────┐       ┌─────────────┐       ┌─────────────┐
@@ -41,15 +41,22 @@ La aplicación sigue una arquitectura de microservicios con las siguientes capas
                                                    │
                                                    ▼
                                             ┌─────────────┐
-                                            │   Base de   │
-                                            │    Datos    │
+                                            │ Repositorio │
+                                            │(Persistencia)│
                                             └─────────────┘
 ```
 
-- **Cliente**: Interfaz de usuario en navegador que se conecta al servidor a través de WebSocket
-- **WebSocket**: Protocolo que permite comunicación bidireccional en tiempo real
-- **Servicio de Chat**: Gestiona la lógica de procesamiento de mensajes
-- **Base de Datos**: Almacena mensajes para persistencia (opcional)
+El proyecto está organizado en las siguientes capas:
+
+- **config**: Configuración de WebSocket y otros componentes de Spring
+- **controller**: Controladores que manejan las peticiones WebSocket
+- **dto**: Objetos de transferencia de datos para los mensajes
+- **entity**: Entidades para persistencia de datos
+- **repository**: Acceso a datos y persistencia
+- **service**: Lógica de negocio y procesamiento de mensajes
+- **exception**: Manejo centralizado de excepciones
+
+La aplicación utiliza una arquitectura simple pero efectiva que sigue los principios de separación de responsabilidades, permitiendo mantener el código organizado y fácil de mantener.
 
 ## ✨ Características
 
